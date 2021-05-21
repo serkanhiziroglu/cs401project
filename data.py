@@ -12,7 +12,7 @@ print(array)
 
 countryData = {
             'AIdecision': array,
-            'BudgetRequired':['Hdigh','High','Low','High','Low','High','Low','Low','High','High'],
+            'BudgetRequired':['High','High','Low','High','Low','High','Low','Low','High','High'],
             'Distance':['Short', 'Short', 'Short', 'Long', 'Long', 'Short', 'Long', 'Long', 'Short', 'Short'],
             'Language':['French', 'Spanish', 'Greek', 'English', 'Chinese', 'Italian', 'Spanish', 'Thai', 'German', 'English']
             }
