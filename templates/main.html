@@ -99,7 +99,7 @@
         border-color: 		#005073;
         border-width: 3px;
         font-size:55px;
-        text-shadow: 3px 3px 3px #ababab;
+        text-shadow: 3px 3px 3px #a3bcff;
         font-weight: bold;
         text-align: center;
     }
@@ -308,9 +308,11 @@ body {
 
 
 
-    function displayUserResponse() {
+    function displayUserResponse(response) {
         
-        var userResponse = `<div style="font-size:25px;margin:5px"><span style="color: #72acd4;font-size:25px;">User : </span>I want to `+ $("#dropdownMenuButton1").text() + ` 
+        var userResponse = `<div style="font-size:25px;"><span style="color:gray">`+ response.timestamp + `</span>
+        <br>
+        <div style="font-size:25px;margin:5px"><span style="color: #72acd4;font-size:25px;">User : </span>I want to `+ $("#dropdownMenuButton1").text() + ` 
         for `+ $("#dropdownMenuButton2").text() + ` 
         in `+ $("#dropdownMenuButton3").text() + `
         starting `+ $("#dropdownMenuButton4").text() + `.</div>`  
@@ -326,8 +328,10 @@ body {
         // );
 
 
-        var aiResponseSpan = `<div style="font-size:25px;">
-        <span style="color: #72acd4;font-size:25px;margin:5px;">AI : </span>I want to `+ response.activity + ` 
+        var aiResponseSpan = `<div style="font-size:25px;"><span style="color:gray">`+ response.timestamp + `</span>
+        <br>
+        <span style="color: #72acd4;font-size:25px;margin:5px;">AI : </span> 
+        I want to `+ response.activity + ` 
         for `+ response.duration + ` 
         in `+ response.location + `
         starting `+ response.startTime + `.</div>`
@@ -357,7 +361,7 @@ body {
             startTime: $("#dropdownMenuButton4").text()
         }).done(function (data) {
             console.trace("[Time: %s] Got response back from the server!", data.timestamp);
-            displayUserResponse();
+            displayUserResponse(data);
             displayAIresponse(data);
             startTimer();
 
