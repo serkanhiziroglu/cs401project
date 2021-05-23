@@ -61,14 +61,16 @@ def aiModel(activity, duration, location, startTime):
 	z = ((startingTimes.AIdecision[startingTimes.AIdecision == y].index).to_list())
 	startTime = z[0]
 	
-	
-		
+	imageSource = countries.loc[location]['Image']
+	#console.log(imageSource)
+
 	return {
 			"activity": activity,
 			"duration": duration,
 			"location": location,
 			"startTime": startTime,
-			"timestamp": datetime.now()
+			"timestamp": datetime.now(),
+			"imageSource": imageSource
 		}
 	# text = ""
 	# if location != "TURKEY":

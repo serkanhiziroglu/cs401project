@@ -2,6 +2,8 @@
 
 <head>
     <title>Negotiation Bot</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,6 +13,7 @@
 </head>
 
 <style>
+    body { font-family: 'Balsamiq Sans', sans-serif;}
     h1 {
         background-color: white;
         text-align: center;
@@ -35,40 +38,231 @@
         background-color: lightslategray;
     }
 
-    .chatbox {
-        max-height: 80%;
-        overflow-y: scroll;
-        border: solid;
-        border-radius: 5px;
-        border-color: gray;
-        border-width: 1px;
-        margin-bottom: 10px;
-        margin-top: 3px;
-        min-height: 650px;
-    }
 
-    .textGroup {
-        margin-top: 50px;
-    }
 
-    
-    .submitButton {
-        margin-top: 50px;
-        display: flex;
-    }
- 
-    .acceptButton {
-        flex: 1;
-        bottom:0;
-    right:0;
-    }
-
-    .dropdown-menu{
+    .dropdown-menu {
         overflow: visible;
-        max-height:300px;
-        overflow-y: scroll;
+        max-height: 325px;
+
     }
- 
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        gap: 5px 5px;
+        grid-template-areas:
+            "Timer NegotiatorBot NegotiatorBot Chat"
+            "Timer CountryPic CountryPic Chat"
+            "Info CountryPic CountryPic Chat"
+            "Info Preferences Preferences OfferAccept";
+    }
+
+    .OfferAccept {
+
+        resize:none !important;
+        margin-right: 3px;
+        max-height: 195px;
+        min-height: 195px;
+        grid-area: OfferAccept;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1ft 1fr 1fr 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            "OfferAcceptInterface"
+            "OfferAcceptInterface"
+            "OfferAcceptInterface"
+            "OfferAcceptInterface"
+            "buttons";
+
+    }
+
+    .OfferAcceptInterface{
+        min-height:200px;
+        max-height:200px;
+        resize:none !important;
+        border:solid;
+        border-radius: 5px;
+        border-color: 	#1ebbd7;
+        border-width: 3px;
+        margin:5px;
+        grid-area: OfferAcceptInterface;
+        text-align: center;
+    }
+
+    .NegotiatorBot {
+        margin-top:5px;
+        grid-area: NegotiatorBot;
+        border:solid;
+        border-radius: 7px;
+        border-color: 		#005073;
+        border-width: 3px;
+        font-size:55px;
+        text-shadow: 3px 3px 3px #ababab;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+
+    .Chat {
+        
+        overflow-y:scroll;
+        margin-top:5px;
+        grid-area: Chat;
+        border:solid;
+        border-radius: 7px;
+        border-color: 			#189ad3;
+        border-width: 3px;
+        min-height: 700px;
+        max-height: 700px;
+    }
+
+
+
+
+    .Timer {
+        margin-left:5px;
+        margin-top:5px;
+        grid-area: Timer;
+        border:solid;
+        border-radius: 5px;
+    border-color: #189ad3;
+    border-width: 3px;
+    place-items: center;
+     }
+
+     .Info { 
+        margin-left:5px;
+        margin-top:5px;
+        grid-area: Info;
+        border:solid;
+        border-radius: 5px;
+    border-color: 	#1ebbd7;
+    border-width: 3px;
+     }
+
+     .CountryPic { 
+        margin-top:5px;
+        grid-area: CountryPic;
+        
+     }
+
+     .Preferences { 
+        margin-top:5px;
+        grid-area: Preferences;
+        border:solid;
+        border-radius: 5px;
+    border-color: rgb(104, 126, 173);
+    border-width: 3px;
+     }
+
+    .buttons {
+
+    grid-area:buttons;
+    text-align:center;
+
+    }
+
+    .submitButton{
+    border:solid;
+    border-radius: 2px;
+    border-color: gray;
+    border-width: 1px;
+    }
+
+    .acceptButton{
+    display: inline-block;
+    border:solid;
+    border-radius: 2px;
+    border-color: gray;
+    border-width: 1px;
+    }
+
+    .OfferAccepInterfaceText{
+
+    }
+
+    .selectionText:hover {
+        background-color: lightslategray;
+    }
+
+    #countryImage{
+        width:950px; height:450px;
+         display: block;
+         margin-left: auto;
+         margin-right: auto;
+         border:solid;
+        border-radius: 5px;
+        border-color: rgb(92, 118, 233);
+        border-width: 3px;
+         
+    }
+
+
+body {
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+
+.base-timer {
+    margin-top:25px;
+  margin-left:75px;
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.base-timer__path-remaining.green {
+  color: rgb(65, 184, 131);
+}
+
+.base-timer__path-remaining.orange {
+  color: orange;
+}
+
+.base-timer__path-remaining.red {
+  color: red;
+}
+
+.base-timer__label {
+    font-family: Balsamiq Sans;
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -76,109 +270,17 @@
 
 
 <script>
-    var messageCounter = 1;
 
-    function disablePreviousMessage() {
-        console.trace("Message counter : %s", messageCounter);
-        $("#dropdownMenuButton"+messageCounter).addClass("disabled");
-        $("#dropdownMenuButton"+(messageCounter+1)).addClass("disabled");
-        $("#dropdownMenuButton"+(messageCounter+2)).addClass("disabled");
-        $("#dropdownMenuButton"+(messageCounter+3)).addClass("disabled");
-    }
+
 
     function displayUserResponse() {
-        console.trace("Message counter increased : %s", messageCounter);
-        messageCounter = messageCounter + 4;
-
-        $('#aiResponse').append(
-            `<div class="textGroup mt-5 h2">
-                    I want to
-                    <!-- Example split danger button -->
-                    <div class="dropdown selectionText">
-                        <div class="dropdown-toggle" id="dropdownMenuButton`+messageCounter+`" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">X</div>
-                        <div class="dropdown-menu" id="dm`+(messageCounter)+`">
-                        <li><a class="dropdown-item" href="#">EAT TRADITIONAL FOOD</a></li>
-                        <li><a class="dropdown-item" href="#">GO CAMPING</a></li>
-                        <li><a class="dropdown-item" href="#">GO HIKING</a></li>
-                        <li><a class="dropdown-item" href="#">GO SKIING</a></li>
-                        <li><a class="dropdown-item" href="#">GO SWIMMING</a></li>
-                        <li><a class="dropdown-item" href="#">GO TO CINEMA</a></li>
-                        <li><a class="dropdown-item" href="#">GO TO THEATRE</a></li>
-                        <li><a class="dropdown-item" href="#">JOIN WALKING TOUR</a></li>
-                        <li><a class="dropdown-item" href="#">VISIT CAVES</a></li>
-                        <li><a class="dropdown-item" href="#">VISIT MUSEUMS</a></li>
-                        </div>
-                    </div>
-
-                    for
-                    <div class="dropdown selectionText">
-                        <div class="dropdown-toggle" id="dropdownMenuButton`+(messageCounter+1)+`" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">X</div>
-                        <div class="dropdown-menu" id="dm`+(messageCounter+1)+`">
-                        <li><a class="dropdown-item" href="#">3 DAYS</a></li>
-                        <li><a class="dropdown-item" href="#">4 DAYS</a></li>
-                        <li><a class="dropdown-item" href="#">1 WEEK</a></li>
-                        <li><a class="dropdown-item" href="#">2 WEEKS</a></li>
-                        <li><a class="dropdown-item" href="#">3 WEEKS</a></li>
-                        <li><a class="dropdown-item" href="#">1 MONTH</a></li>
-                        <li><a class="dropdown-item" href="#">2 MONTH</a></li>
-                        </div>
-                    </div>
-                    in
-                    <div class="dropdown selectionText">
-                        <div class="dropdown-toggle" id="dropdownMenuButton`+(messageCounter+2)+`" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">X</div>
-                        <div class="dropdown-menu" id="dm`+(messageCounter+2)+`">
-                        <li><a class="dropdown-item" href="#" id="option1">CHINA</a></li>
-                        <li><a class="dropdown-item" href="#" id="option2">FRANCE</a></li>
-                        <li><a class="dropdown-item" href="#" id="option3">GERMANY</a></li>
-                        <li><a class="dropdown-item" href="#" id="option4">GREECE</a></li>
-                        <li><a class="dropdown-item" href="#" id="option5">ITALY</a></li>
-                        <li><a class="dropdown-item" href="#" id="option6">MEXICO</a></li>
-                        <li><a class="dropdown-item" href="#" id="option7">SPAIN</a></li>
-                        <li><a class="dropdown-item" href="#" id="option8">THAILAND</a></li>
-                        <li><a class="dropdown-item" href="#" id="option9">UNITED KINGDOM</a></li>
-                        <li><a class="dropdown-item" href="#" id="option10">UNITED STATES</a></li>
-                        </div>
-                    </div>
-                    starting
-                    <div class="dropdown selectionText">
-                        <div class="dropdown-toggle" id="dropdownMenuButton`+(messageCounter+3)+`" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">X</div>
-                        <div class="dropdown-menu" id="dm`+(messageCounter+3)+`">
-                        <li><a class="dropdown-item" href="#">TODAY</a></li>
-                        <li><a class="dropdown-item" href="#">3 DAYS</a></li>
-                        <li><a class="dropdown-item" href="#">NEXT WEEK</a></li>
-                        <li><a class="dropdown-item" href="#">10 DAYS</a></li>
-                        <li><a class="dropdown-item" href="#">2 WEEK</a></li>
-                        <li><a class="dropdown-item" href="#">NEXT MONTH</a></li>
-                        <li><a class="dropdown-item" href="#">NEXT YEAR</a></li>
-                        </div>
-                    </div>
-                    .
-            </div><br>`
-        ).hide().fadeIn('fast');;
-        $("#dm"+messageCounter+" li a").click(function () {
-            var selText = $(this).text();
-            $("#dropdownMenuButton"+(messageCounter)).html(selText);
-        });
-        $("#dm"+(messageCounter+1)+" li a").click(function () {
-            var selText = $(this).text();
-            $("#dropdownMenuButton"+(messageCounter+1)).html(selText);
-        });
-        $("#dm"+(messageCounter+2)+" li a").click(function () {
-            var selText = $(this).text();
-            $("#dropdownMenuButton"+(messageCounter+2)).html(selText);
-        });
-        $("#dm"+(messageCounter+3)+" li a").click(function () {
-            var selText = $(this).text();
-            $("#dropdownMenuButton"+(messageCounter+3)).html(selText);
-        });
-
-        $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
-
-    }
+        
+        var userResponse = `<div style="font-size:25px;margin:5px"><span style="color: #72acd4;font-size:25px;">User : </span>I want to `+ $("#dropdownMenuButton1").text() + ` 
+        for `+ $("#dropdownMenuButton2").text() + ` 
+        in `+ $("#dropdownMenuButton3").text() + `
+        starting `+ $("#dropdownMenuButton4").text() + `.</div>`  
+        $('.Chat').append(userResponse + '<br>');
+  }
 
     function displayAIresponse(response) {
         // console.log("[AI RESPONSE] Activity: %s, Duration: %s, Location: %s, StartTime: %s",
@@ -189,13 +291,22 @@
         // );
 
 
-        var aiResponseSpan = `<h2>
-        <span style="color: #72acd4 ;">AI : </span>I want to `+response.activity+` 
-        for `+response.duration+` 
-        in `+response.location+`
-        starting `+response.startTime+`.</h2>`
+        var aiResponseSpan = `<div style="font-size:25px;">
+        <span style="color: #72acd4;font-size:25px;margin:5px;">AI : </span>I want to `+ response.activity + ` 
+        for `+ response.duration + ` 
+        in `+ response.location + `
+        starting `+ response.startTime + `.</div>`
         console.log(aiResponseSpan);
-        $('#aiResponse').append(aiResponseSpan + '<br>');
+        $('.Chat').append(aiResponseSpan + '<br>');
+
+        console.log($("#countryImage").attr("src", response.imageSource));
+
+        var image = console.trace(response.imageSource);
+
+
+
+        
+        $('.Chat').scrollTop($('.Chat')[0].scrollHeight);
     }
 
     // Sends the user input to the server
@@ -205,20 +316,24 @@
 
         var form = document.getElementById("inputForm");
         $.post("/getAIresponse", {
-            activity: $("#dropdownMenuButton"+messageCounter).text(), // User input
-            duration: $("#dropdownMenuButton"+(messageCounter+1)).text(),
-            location: $("#dropdownMenuButton"+(messageCounter+2)).text(),
-            startTime: $("#dropdownMenuButton"+(messageCounter+3)).text()
+            activity: $("#dropdownMenuButton1").text(), // User input
+            duration: $("#dropdownMenuButton2").text(),
+            location: $("#dropdownMenuButton3").text(),
+            startTime: $("#dropdownMenuButton4").text()
         }).done(function (data) {
             console.trace("[Time: %s] Got response back from the server!", data.timestamp);
-            disablePreviousMessage();
-            displayAIresponse(data);
             displayUserResponse();
+            displayAIresponse(data);
+            startTimer();
+
         });
 
     }
 
     $(document).ready(function () {
+
+       
+
         $("#dm1 li a").click(function () {
             var selText = $(this).text();
             $("#dropdownMenuButton1").html(selText);
@@ -236,10 +351,15 @@
             $("#dropdownMenuButton4").html(selText);
         });
         $.get("/getUserID", {}).
-        done(function (data) {
-            console.trace("Got user ID back from the server!");
-            $("#userID").text("User ID : " + data);
-        });
+            done(function (data) {
+                console.trace("Got user ID back from the server!");
+                $("#userID").text("User ID : " + data);
+            });
+
+        
+        
+
+        
 
         // $.ajax({
         //     type: 'POST',
@@ -251,113 +371,116 @@
         //         alert('x');
         //     }
         // });
-        
+
     });
+
+
+
+
 
 </script>
 
-<body>
-    <div id="mainContainer" class="container-fluid text-center align-items-center justify-content-between" >
-        <h1>
-            NegotiatorBot
-        </h1>
-        <span id="userID" class="text-center" style="color: gray;"></span>
 
-            <!-- <form id="inputForm" action="/getAIresponse" method="post">
-                Ben X 3 haftalik tatile gitmek istiyorum.           
-                <input id="userInputMessage" type="text" name="userMessage" size="35">
-            </form> -->
+<html>
+<div class="grid-container">
 
-            <div id="chatbox" class="chatbox" >
-
-            
-            <div class="textGroup mt-5 h2">
-                I want to
-                <!-- Example split danger button -->
-                <div class="dropdown selectionText">
-                    <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">X</div>
-                    <div class="dropdown-menu" id="dm1" >
-                        <li><a class="dropdown-item" href="#">EAT TRADITIONAL FOOD</a></li>
-                        <li><a class="dropdown-item" href="#">GO CAMPING</a></li>
-                        <li><a class="dropdown-item" href="#">GO HIKING</a></li>
-                        <li><a class="dropdown-item" href="#">GO SKIING</a></li>
-                        <li><a class="dropdown-item" href="#">GO SWIMMING</a></li>
-                        <li><a class="dropdown-item" href="#">GO TO CINEMA</a></li>
-                        <li><a class="dropdown-item" href="#">GO TO THEATRE</a></li>
-                        <li><a class="dropdown-item" href="#">JOIN WALKING TOUR</a></li>
-                        <li><a class="dropdown-item" href="#">VISIT CAVES</a></li>
-                        <li><a class="dropdown-item" href="#">VISIT MUSEUMS</a></li>
-                    </div>
-                </div>
-
-                for
-                <div class="dropdown selectionText">
-                    <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">X</div>
-                    <div class="dropdown-menu" id="dm2" >
-                        <li><a class="dropdown-item" href="#">3 DAYS</a></li>
-                        <li><a class="dropdown-item" href="#">4 DAYS</a></li>
-                        <li><a class="dropdown-item" href="#">1 WEEK</a></li>
-                        <li><a class="dropdown-item" href="#">2 WEEKS</a></li>
-                        <li><a class="dropdown-item" href="#">3 WEEKS</a></li>
-                        <li><a class="dropdown-item" href="#">1 MONTH</a></li>
-                        <li><a class="dropdown-item" href="#">2 MONTH</a></li>
-                    </div>
-                </div>
-                in
-                <div class="dropdown selectionText">
-                    <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">X</div>
-                    <div class="dropdown-menu" id="dm3">
-                        <li><a class="dropdown-item" href="#" id="option1">CHINA</a></li>
-                        <li><a class="dropdown-item" href="#" id="option2">FRANCE</a></li>
-                        <li><a class="dropdown-item" href="#" id="option3">GERMANY</a></li>
-                        <li><a class="dropdown-item" href="#" id="option4">GREECE</a></li>
-                        <li><a class="dropdown-item" href="#" id="option5">ITALY</a></li>
-                        <li><a class="dropdown-item" href="#" id="option6">MEXICO</a></li>
-                        <li><a class="dropdown-item" href="#" id="option7">SPAIN</a></li>
-                        <li><a class="dropdown-item" href="#" id="option8">THAILAND</a></li>
-                        <li><a class="dropdown-item" href="#" id="option9">UNITED KINGDOM</a></li>
-                        <li><a class="dropdown-item" href="#" id="option10">UNITED STATES</a></li>
-                    </div>
-                </div>
-                starting
-                <div class="dropdown selectionText">
-                    <div class="dropdown-toggle" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">X</div>
-                    <div class="dropdown-menu" id="dm4">
-                        <li><a class="dropdown-item" href="#">TODAY</a></li>
-                        <li><a class="dropdown-item" href="#">3 DAYS</a></li>
-                        <li><a class="dropdown-item" href="#">NEXT WEEK</a></li>
-                        <li><a class="dropdown-item" href="#">10 DAYS</a></li>
-                        <li><a class="dropdown-item" href="#">2 WEEK</a></li>
-                        <li><a class="dropdown-item" href="#">NEXT MONTH</a></li>
-                        <li><a class="dropdown-item" href="#">NEXT YEAR</a></li>
-                    </div>
-                </div>
-                .
+    <div class="NegotiatorBot">
+        <div id="header" style="margin-top:55px; color:rgb(0, 0, 39);">NegotiatorBot</div></div>
+    <div class="OfferAccept">
+        <div id="OfferAccepInterface" class="OfferAcceptInterface">
+            <div id="OfferAccepInterfaceText" class="OfferAcceptInterfaceText" 
+            style="margin:10px;font-size:25px;">
+        I want to
+        <div class="dropdown selectionText">
+            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">X</div>
+            <div class="dropdown-menu" id="dm1">
+                <li><a class="dropdown-item" href="#">EAT TRADITIONAL FOOD</a></li>
+                <li><a class="dropdown-item" href="#">GO CAMPING</a></li>
+                <li><a class="dropdown-item" href="#">GO HIKING</a></li>
+                <li><a class="dropdown-item" href="#">GO SKIING</a></li>
+                <li><a class="dropdown-item" href="#">GO SWIMMING</a></li>
+                <li><a class="dropdown-item" href="#">GO TO CINEMA</a></li>
+                <li><a class="dropdown-item" href="#">GO TO THEATRE</a></li>
+                <li><a class="dropdown-item" href="#">JOIN WALKING TOUR</a></li>
+                <li><a class="dropdown-item" href="#">VISIT CAVES</a></li>
+                <li><a class="dropdown-item" href="#">VISIT MUSEUMS</a></li>
             </div>
-
-            
-
-                <div id="aiResponse">
-
-                </div>
-                <br> <br>
+        </div>
+        for
+        <div class="dropdown selectionText">
+            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">X</div>
+            <div class="dropdown-menu" id="dm2">
+                <li><a class="dropdown-item" href="#">3 DAYS</a></li>
+                <li><a class="dropdown-item" href="#">4 DAYS</a></li>
+                <li><a class="dropdown-item" href="#">1 WEEK</a></li>
+                <li><a class="dropdown-item" href="#">2 WEEKS</a></li>
+                <li><a class="dropdown-item" href="#">3 WEEKS</a></li>
+                <li><a class="dropdown-item" href="#">1 MONTH</a></li>
+                <li><a class="dropdown-item" href="#">2 MONTHS</a></li>
             </div>
-
-
-            <div>
-                <button class="btn btn-outline-dark" id="submitButton" onclick="sendMessage()">Submit</button>
-                <button class="btn btn-outline-dark" style="display: inline-block;"> Accept</button>
+        </div>
+        in
+        <div class="dropdown selectionText">
+            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">X</div>
+            <div class="dropdown-menu" id="dm3">
+                <li><a class="dropdown-item" href="#" id="option1">CHINA</a></li>
+                <li><a class="dropdown-item" href="#" id="option2">FRANCE</a></li>
+                <li><a class="dropdown-item" href="#" id="option3">GERMANY</a></li>
+                <li><a class="dropdown-item" href="#" id="option4">GREECE</a></li>
+                <li><a class="dropdown-item" href="#" id="option5">ITALY</a></li>
+                <li><a class="dropdown-item" href="#" id="option6">MEXICO</a></li>
+                <li><a class="dropdown-item" href="#" id="option7">SPAIN</a></li>
+                <li><a class="dropdown-item" href="#" id="option8">THAILAND</a></li>
+                <li><a class="dropdown-item" href="#" id="option9">UNITED KINGDOM</a></li>
+                <li><a class="dropdown-item" href="#" id="option10">UNITED STATES</a></li>
             </div>
+        </div>
+        starting
+        <div class="dropdown selectionText">
+            <div class="dropdown-toggle" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">X</div>
+            <div class="dropdown-menu" id="dm4">
+                <li><a class="dropdown-item" href="#">TODAY</a></li>
+                <li><a class="dropdown-item" href="#">3 DAYS</a></li>
+                <li><a class="dropdown-item" href="#">NEXT WEEK</a></li>
+                <li><a class="dropdown-item" href="#">10 DAYS</a></li>
+                <li><a class="dropdown-item" href="#">2 WEEKS</a></li>
+                <li><a class="dropdown-item" href="#">NEXT MONTH</a></li>
+                <li><a class="dropdown-item" href="#">NEXT YEAR</a></li>
             </div>
+        </div>
+        .
+    </div></div>
 
+    <div class="buttons">
+        <button class="submitButton" onclick="sendMessage()"> Submit </button>
+        <button class="acceptButton"> Accept </button>
+    </div>
 
 
     </div>
-</body>
+    
+    <div class="Chat" style="font-size: 35px; text-align:center" >Chat</div>
+    <div class="Timer" style="font-size: 35px; text-align:center">Timer<div id="app">
+    
+        </div>
+    </div>
+    <div class="CountryPic">
+        <img id="countryImage" class="countryImage" 
+        src="https://wallpaperaccess.com/full/2059786.jpg"
+         alt="Lamp">
+
+    </div>
+    <div class="Info">Info</div>
+    <div class="Preferences">Preferences</div>
+    
+</div>
+
+</html>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -369,11 +492,125 @@
 
 <script>
 
-
-    function displaySelection(val) {
+function displaySelection(val) {
         console.trace("clicked on : ");
         console.trace(val.getAttribute("value"));
     }
+
+
+    const FULL_DASH_ARRAY = 283;
+const WARNING_THRESHOLD = 10;
+const ALERT_THRESHOLD = 5;
+
+const COLOR_CODES = {
+  info: {
+    color: "green"
+  },
+  warning: {
+    color: "orange",
+    threshold: WARNING_THRESHOLD
+  },
+  alert: {
+    color: "red",
+    threshold: ALERT_THRESHOLD
+  }
+};
+
+const TIME_LIMIT = 20;
+let timePassed = 0;
+let timeLeft = TIME_LIMIT;
+let timerInterval = null;
+let remainingPathColor = COLOR_CODES.info.color;
+
+document.getElementById("app").innerHTML = `
+<div class="base-timer">
+  <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g class="base-timer__circle">
+      <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+      <path
+        id="base-timer-path-remaining"
+        stroke-dasharray="283"
+        class="base-timer__path-remaining ${remainingPathColor}"
+        d="
+          M 50, 50
+          m -45, 0
+          a 45,45 0 1,0 90,0
+          a 45,45 0 1,0 -90,0
+        "
+      ></path>
+    </g>
+  </svg>
+  <span id="base-timer-label" class="base-timer__label">${formatTime(
+    timeLeft
+  )}</span>
+</div>
+`;
+
+startTimer();
+
+function onTimesUp() {
+  clearInterval(timerInterval);
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timePassed = timePassed += 1;
+    timeLeft = TIME_LIMIT - timePassed;
+    document.getElementById("base-timer-label").innerHTML = formatTime(
+      timeLeft
+    );
+    setCircleDasharray();
+    setRemainingPathColor(timeLeft);
+
+    if (timeLeft === 0) {
+      onTimesUp();
+    }
+  }, 1000);
+}
+
+function formatTime(time) {
+  const minutes = Math.floor(time / 60);
+  let seconds = time % 60;
+
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+
+  return `${minutes}:${seconds}`;
+}
+
+function setRemainingPathColor(timeLeft) {
+  const { alert, warning, info } = COLOR_CODES;
+  if (timeLeft <= alert.threshold) {
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.remove(warning.color);
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.add(alert.color);
+  } else if (timeLeft <= warning.threshold) {
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.remove(info.color);
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.add(warning.color);
+  }
+}
+
+function calculateTimeFraction() {
+  const rawTimeFraction = timeLeft / TIME_LIMIT;
+  return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+}
+
+function setCircleDasharray() {
+  const circleDasharray = `${(
+    calculateTimeFraction() * FULL_DASH_ARRAY
+  ).toFixed(0)} 283`;
+  document
+    .getElementById("base-timer-path-remaining")
+    .setAttribute("stroke-dasharray", circleDasharray);
+}
 
 
 </script>
