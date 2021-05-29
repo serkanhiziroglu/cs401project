@@ -18,13 +18,13 @@ def index():
 # AI agent ile iletisim API'yi
 @app.route('/getAIresponse',  methods=['POST'])
 def getAIresponse():
-	activity = request.form.get('activity').strip()
-	duration = request.form.get('duration').strip()
+	type = request.form.get('type').strip()
 	location = request.form.get('location').strip()
-	startTime = request.form.get('startTime').strip()
-	print(f'activity: {activity}, duration: {duration}, location: {location}, startTime: {startTime}')
+	duration = request.form.get('duration').strip()
+	transportation = request.form.get('transportation').strip()
+	print(f'type: {type}, loation: {location}, duration: {duration}, transportation: {transportation}')
 	# aiResponse = Python.run('aimodel.py', userMessage)
-	aiResponse = aiModel(activity, duration, location, startTime)
+	aiResponse = aiModel(type, location, duration, transportation)
 	return aiResponse
 
 # Get unique user ID
@@ -39,36 +39,38 @@ def accountPage():
 	return 'This is your account page'
 
 
-def aiModel(activity, duration, location, startTime):
+def aiModel(type, location, duration, transportation):
 
-	x= countries.loc[location]['AIdecision']
-	y = math.floor((x + 10)/2)
-	z = ((countries.AIdecision[countries.AIdecision == y].index).to_list())
+	
+	print("hey")
+
+	x= types.loc[type]['AIdecision']
+	y = math.floor((x + 4)/2)
+	z = ((types.AIdecision[types.AIdecision == y].index).to_list())
+	type = z[0]
+
+	x= locations.loc[location]['AIdecision']
+	y = math.floor((x + 4)/2)
+	z = ((locations.AIdecision[locations.AIdecision == y].index).to_list())
 	location = z[0]
 
-	x= activities.loc[activity]['AIdecision']
-	y = math.floor((x + 10)/2)
-	z = ((activities.AIdecision[activities.AIdecision == y].index).to_list())
-	activity = z[0]
-
 	x= durations.loc[duration]['AIdecision']
-	y = math.floor((x + 7)/2)
+	y = math.floor((x + 4)/2)
 	z = ((durations.AIdecision[durations.AIdecision == y].index).to_list())
 	duration = z[0]
 
-	x= startingTimes.loc[startTime]['AIdecision']
-	y = math.floor((x + 7)/2)
-	z = ((startingTimes.AIdecision[startingTimes.AIdecision == y].index).to_list())
-	startTime = z[0]
+	x= transportations.loc[transportation]['AIdecision']
+	y = math.floor((x + 4)/2)
+	z = ((transportations.AIdecision[transportations.AIdecision == y].index).to_list())
+	transportation = z[0]
 	
-	imageSource = countries.loc[location]['Image']
-	#console.log(imageSource)
+	imageSource = locations.loc[location]['Image']
 
 	return {
-			"activity": activity,
-			"duration": duration,
+			"type": type,
 			"location": location,
-			"startTime": startTime,
+			"duration": duration,
+			"transportation": transportation,
 			"timestamp": datetime.now(),
 			"imageSource": imageSource
 		}

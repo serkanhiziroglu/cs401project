@@ -1,306 +1,439 @@
 <html>
 
 <head>
-    <title>Negotiation Bot</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Negotiatior Bot</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 
 <style>
-    body { font-family: 'Balsamiq Sans', sans-serif;}
-    h1 {
-        background-color: white;
-        text-align: center;
-    }
+  body {
+    font-family: 'Balsamiq Sans', sans-serif;
+  }
 
-    h2 {
-        background-color: white;
-        text-align: center;
-    }
+  h1 {
+    background-color: white;
+    text-align: center;
+  }
 
-    .selectionText {
-        cursor: pointer;
-        background-color: white;
-        border-style: solid;
-        border-width: 2px;
-        border-radius: 5px;
-        border-color: lightgray;
-        display: inline-block;
-    }
-
-    .selectionText:hover {
-        background-color: lightslategray;
-    }
+  h2 {
+    background-color: white;
+    text-align: center;
+  }
 
 
 
-    .dropdown-menu {
-        overflow: visible;
-        max-height: 325px;
+  .selectionText {
+    cursor: pointer;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: lightgray;
+    display: inline-block;
+  }
 
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        gap: 5px 5px;
-        grid-template-areas:
-            "Timer NegotiatorBot NegotiatorBot Chat"
-            "Timer CountryPic CountryPic Chat"
-            "Info CountryPic CountryPic Chat"
-            "Info Preferences Preferences OfferAccept";
-    }
-
-    .OfferAccept {
-
-        resize:none !important;
-        margin-right: 3px;
-        max-height: 195px;
-        min-height: 195px;
-        grid-area: OfferAccept;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1ft 1fr 1fr 1fr;
-        gap: 0px 0px;
-        grid-template-areas:
-            "OfferAcceptInterface"
-            "OfferAcceptInterface"
-            "OfferAcceptInterface"
-            "OfferAcceptInterface"
-            "buttons";
-
-    }
-
-    .OfferAcceptInterface{
-        min-height:200px;
-        max-height:200px;
-        resize:none !important;
-        border:solid;
-        border-radius: 5px;
-        border-color: 	#1ebbd7;
-        border-width: 3px;
-        margin:5px;
-        grid-area: OfferAcceptInterface;
-        text-align: center;
-    }
-
-    .NegotiatorBot {
-        margin-top:5px;
-        grid-area: NegotiatorBot;
-        border:solid;
-        border-radius: 7px;
-        border-color: 		#005073;
-        border-width: 3px;
-        font-size:55px;
-        text-shadow: 3px 3px 3px #a3bcff;
-        font-weight: bold;
-        text-align: center;
-    }
+  .selectionText:hover {
+    background-color: lightslategray;
+  }
 
 
 
-    .Chat {
-        
-        overflow-y:scroll;
-        margin-top:5px;
-        grid-area: Chat;
-        border:solid;
-        border-radius: 7px;
-        border-color: 			#189ad3;
-        border-width: 3px;
-        min-height: 700px;
-        max-height: 700px;
-    }
+  .dropdown-menu {
+    overflow: visible;
+    max-height: 325px;
+
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 5px 5px;
+    grid-template-areas:
+      "Timer NegotiatorBot NegotiatorBot Chat"
+      "Timer CountryPic CountryPic Chat"
+      "Info CountryPic CountryPic Chat"
+      "Info Preferences Preferences OfferAccept";
+    filter: blur(10px);
+  }
+
+  .OfferAccept {
+
+    resize: none !important;
+    margin-right: 3px;
+    max-height: 195px;
+    min-height: 195px;
+    grid-area: OfferAccept;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1ft 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "OfferAcceptInterface"
+      "OfferAcceptInterface"
+      "OfferAcceptInterface"
+      "OfferAcceptInterface"
+      "buttons";
+
+  }
+
+  .OfferAcceptInterface {
+    min-height: 200px;
+    max-height: 200px;
+    resize: none !important;
+    border: solid;
+    border-radius: 5px;
+    border-color: #1ebbd7;
+    border-width: 3px;
+    margin: 5px;
+    grid-area: OfferAcceptInterface;
+    text-align: center;
+  }
+
+  .NegotiatorBot {
+    margin-top: 5px;
+    grid-area: NegotiatorBot;
+    border: solid;
+    border-radius: 7px;
+    border-color: #005073;
+    border-width: 3px;
+    font-size: 55px;
+    text-shadow: 3px 3px 3px #a3bcff;
+    font-weight: bold;
+    text-align: center;
+  }
+
+
+
+  .Chat {
+
+    overflow-y: scroll;
+    margin-top: 5px;
+    grid-area: Chat;
+    border: solid;
+    border-radius: 7px;
+    border-color: #189ad3;
+    border-width: 3px;
+    min-height: 700px;
+    max-height: 700px;
+  }
 
 
 
 
-    .Timer {
-        margin-left:5px;
-        margin-top:5px;
-        grid-area: Timer;
-        border:solid;
-        border-radius: 5px;
+  .Timer {
+    margin-left: 5px;
+    margin-top: 5px;
+    grid-area: Timer;
+    border: solid;
+    border-radius: 5px;
     border-color: #189ad3;
     border-width: 3px;
     place-items: center;
-     }
+  }
 
-     .Info { 
-        margin-left:5px;
-        margin-top:5px;
-        grid-area: Info;
-        border:solid;
-        border-radius: 5px;
-    border-color: 	#1ebbd7;
+  .Info {
+    margin-left: 5px;
+    margin-top: 5px;
+    grid-area: Info;
+    border: solid;
+    border-radius: 5px;
+    border-color: #1ebbd7;
     border-width: 3px;
-     }
+  }
 
-     .CountryPic { 
-        margin-top:5px;
-        grid-area: CountryPic;
-        
-     }
+  .CountryPic {
+    margin-top: 5px;
+    grid-area: CountryPic;
 
-     .Preferences { 
-        margin-top:5px;
-        grid-area: Preferences;
-        border:solid;
-        border-radius: 5px;
+  }
+
+  .Preferences {
+    margin-top: 5px;
+    grid-area: Preferences;
+    border: solid;
+    border-radius: 5px;
     border-color: rgb(104, 126, 173);
     border-width: 3px;
-     }
+  }
 
-    .buttons {
+  .buttons {
 
-    grid-area:buttons;
-    text-align:center;
+    grid-area: buttons;
+    text-align: center;
 
-    }
+  }
 
-    .submitButton{
-    border:solid;
+  .submitButton {
+    border: solid;
     border-radius: 2px;
     border-color: gray;
     border-width: 1px;
-    }
+  }
 
-    .acceptButton{
+  .acceptButton {
     display: inline-block;
-    border:solid;
+    border: solid;
     border-radius: 2px;
     border-color: gray;
     border-width: 1px;
-    }
+  }
 
-    .OfferAccepInterfaceText{
+  .selectionText:hover {
+    background-color: lightslategray;
+  }
 
-    }
+  #countryImage {
+    width: 950px;
+    height: 450px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+    border-radius: 5px;
+    border-color: rgb(92, 118, 233);
+    border-width: 3px;
 
-    .selectionText:hover {
-        background-color: lightslategray;
-    }
-
-    #countryImage{
-        width:950px; height:450px;
-         display: block;
-         margin-left: auto;
-         margin-right: auto;
-         border:solid;
-        border-radius: 5px;
-        border-color: rgb(92, 118, 233);
-        border-width: 3px;
-         
-    }
+  }
 
 
-body {
-  display: grid;
-  height: 100vh;
-  place-items: center;
-}
+  body {
+    display: grid;
+    height: 100vh;
+    place-items: center;
+  }
 
-.base-timer {
-    margin-top:25px;
-  margin-left:80px;
-  position: relative;
-  width: 300px;
-  height: 300px;
-}
+  .base-timer {
+    margin-top: 25px;
+    margin-left: 80px;
+    position: relative;
+    width: 300px;
+    height: 300px;
+  }
 
-.base-timer__svg {
-  transform: scaleX(-1);
-}
+  .base-timer__svg {
+    transform: scaleX(-1);
+  }
 
-.base-timer__circle {
-  fill: none;
-  stroke: none;
-}
+  .base-timer__circle {
+    fill: none;
+    stroke: none;
+  }
 
-.base-timer__path-elapsed {
-  stroke-width: 7px;
-  stroke: grey;
-}
+  .base-timer__path-elapsed {
+    stroke-width: 7px;
+    stroke: grey;
+  }
 
-.base-timer__path-remaining {
-  stroke-width: 7px;
-  stroke-linecap: round;
-  transform: rotate(90deg);
-  transform-origin: center;
-  transition: 1s linear all;
-  fill-rule: nonzero;
-  stroke: currentColor;
-}
+  .base-timer__path-remaining {
+    stroke-width: 7px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+    stroke: currentColor;
+  }
 
-.base-timer__path-remaining.green {
-  color: rgb(65, 184, 131);
-}
+  .base-timer__path-remaining.green {
+    color: rgb(65, 184, 131);
+  }
 
-.base-timer__path-remaining.orange {
-  color: orange;
-}
+  .base-timer__path-remaining.orange {
+    color: orange;
+  }
 
-.base-timer__path-remaining.red {
-  color: red;
-}
+  .base-timer__path-remaining.red {
+    color: red;
+  }
 
-.base-timer__label {
+  .base-timer__label {
     font-family: Balsamiq Sans;
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-}
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+  }
 
-.slidecontainer {
-  width: 100%; 
-}
-
-
-.slider {
-    border-radius: 5px; 
-  -webkit-appearance: none;  
-  appearance: none;
-  width: 100%; 
-  height: 25px; 
-  background: #d3d3d3;
-  outline: none; 
-  opacity: 0.7; 
-  -webkit-transition: .2s; 
-  transition: opacity .2s;
-}
+  .slidecontainer {
+    width: 100%;
+  }
 
 
-.slider:hover {
-  opacity: 1;
-}
+  .slider {
+    border-radius: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
 
 
-.slider::-webkit-slider-thumb {
-    border-radius: 5px; 
-  -webkit-appearance: none; 
-  appearance: none;
-  width: 25px; 
-  height: 25px; 
-  background: #2052f7; 
-  cursor: pointer; 
-
-}
+  .slider:hover {
+    opacity: 1;
+  }
 
 
+  .slider::-webkit-slider-thumb {
+    border-radius: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #2052f7;
+    cursor: pointer;
+
+  }
+
+  .modal-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1001;
+  }
+
+  .modal-main {
+
+
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    grid-gap: 3px;
+    grid-template-areas:
+      "PopupHeadline PopupHeadline"
+      "PopupTypes PopupLocations"
+      "PopupDurations PopupTransportations"
+      "PopupClose PopupClose";
+
+    width: 1200px;
+    height: 900px;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    box-shadow: 55px, 5px, 5px 5px black;
+
+  }
+
+  #PopupHeadline {
+
+    border: solid;
+    border-radius: 7px;
+    border-color: #005073;
+    border-width: 3px;
+    margin-top: 5px;
+    margin-right: 3px;
+    margin-left: 3px;
+    grid-area: PopupHeadline;
+    text-align: center;
+
+  }
+
+  #PopupLocations {
+    margin-right: 3px;
+    border: solid;
+    border-radius: 7px;
+    border-color: #005073;
+    border-width: 3px;
+    grid-area: PopupLocations;
+
+  }
+
+  #PopupDurations {
+    margin-left: 3px;
+    border: solid;
+    border-radius: 7px;
+    border-color: #005073;
+    border-width: 3px;
+    grid-area: PopupDurations;
+  }
+
+  #PopupTypes {
+    margin-left: 3px;
+    border: solid;
+    border-radius: 7px;
+    border-color: #005073;
+    border-width: 3px;
+    grid-area: PopupTypes;
+  }
+
+  #PopupTransportations {
+    margin-right: 3px;
+    border: solid;
+    border-radius: 7px;
+    border-color: #005073;
+    border-width: 3px;
+    grid-area: PopupTransportations;
+  }
+
+  #popup-close {
+    border: solid;
+    border-radius: 7px;
+    border-color: #005073;
+    border-width: 3px;
+    grid-area: PopupClose;
+    margin-top: 10px;
+    margin-right: 500px;
+    margin-left: 500px;
+  }
+
+  #sortable-location,
+  #sortable-duration,
+  #sortable-transportation,
+  #sortable-type {
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: auto;
+    width: 75%;
+  }
+
+  #sortable-location li,
+  #sortable-duration li,
+  #sortable-transportation li,
+  #sortable-type li {
+    cursor: default;
+    margin: 0 5px 5px 5px;
+    font-size: 25px;
+    height: 35px;
+  }
+
+  .default {
+    background: #afc0df;
+    border: 2px solid #000000;
+    color: #333333;
+  }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 
@@ -308,110 +441,131 @@ body {
 
 
 
-    function displayUserResponse(response) {
-        
-        var userResponse = `<div style="font-size:25px;"><span style="color:gray">`+ response.timestamp + `</span>
+  Chart.plugins.register(ChartDataLabels);
+  Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
+    color: 'black'
+  });
+
+
+  $(function () {
+    $("#sortable-location").sortable();
+    $("#sortable-duration").sortable();
+    $("#sortable-transportation").sortable();
+    $("#sortable-type").sortable();
+  });
+
+
+
+  function displayUserResponse(response) {
+
+    var userResponse = `<div style="font-size:25px;"><span style="color:gray">` + response.timestamp + `</span>
         <br>
-        <div style="font-size:25px;margin:5px"><span style="color: #72acd4;font-size:25px;">User : </span>I want to `+ $("#dropdownMenuButton1").text() + ` 
-        for `+ $("#dropdownMenuButton2").text() + ` 
-        in `+ $("#dropdownMenuButton3").text() + `
-        starting `+ $("#dropdownMenuButton4").text() + `.</div>`  
-        $('.Chat').append(userResponse + '<br>');
+        <div style="font-size:25px;margin:5px"><span style="color: #72acd4;font-size:25px;">User : </span>I want to go to `+ $("#dropdownMenuButton1").text() + ` 
+        trip in `+ $("#dropdownMenuButton2").text() + ` 
+        for `+ $("#dropdownMenuButton3").text() + `
+        with `+ $("#dropdownMenuButton4").text() + `.</div>`
+    $('.Chat').append(userResponse + '<br>');
   }
 
-    function displayAIresponse(response) {
-        // console.log("[AI RESPONSE] Activity: %s, Duration: %s, Location: %s, StartTime: %s",
-        //     response.activity,
-        //     response.duration,
-        //     response.location,
-        //     response.startTime
-        // );
+  function displayAIresponse(response) {
+    // console.log("[AI RESPONSE] Activity: %s, Duration: %s, Location: %s, StartTime: %s",
+    //     response.activity,
+    //     response.duration,
+    //     response.location,
+    //     response.startTime
+    // );
 
 
-        var aiResponseSpan = `<div style="font-size:25px;"><span style="color:gray">`+ response.timestamp + `</span>
+    var aiResponseSpan = `<div style="font-size:25px;"><span style="color:gray">` + response.timestamp + `</span>
         <br>
         <span style="color: #72acd4;font-size:25px;margin:5px;">AI : </span> 
-        I want to `+ response.activity + ` 
-        for `+ response.duration + ` 
-        in `+ response.location + `
-        starting `+ response.startTime + `.</div>`
-        console.log(aiResponseSpan);
-        $('.Chat').append(aiResponseSpan + '<br>');
+        How about `+ response.type + ` 
+        trip in `+ response.location + ` 
+        for `+ response.duration + `
+        with `+ response.transportation + `?</div>`
+    console.log(aiResponseSpan);
+    $('.Chat').append(aiResponseSpan + '<br>');
 
-        console.log($("#countryImage").attr("src", response.imageSource));
+    console.log($("#countryImage").attr("src", response.imageSource));
 
-        var image = console.trace(response.imageSource);
+    var image = console.trace(response.imageSource);
 
 
 
-        
-        $('.Chat').scrollTop($('.Chat')[0].scrollHeight);
-    }
 
-    // Sends the user input to the server
-    function sendMessage() {
-        // Send the message to server
-        console.trace("Sending message to server...");
+    $('.Chat').scrollTop($('.Chat')[0].scrollHeight);
+  }
 
-        var form = document.getElementById("inputForm");
-        $.post("/getAIresponse", {
-            activity: $("#dropdownMenuButton1").text(), // User input
-            duration: $("#dropdownMenuButton2").text(),
-            location: $("#dropdownMenuButton3").text(),
-            startTime: $("#dropdownMenuButton4").text()
-        }).done(function (data) {
-            console.trace("[Time: %s] Got response back from the server!", data.timestamp);
-            displayUserResponse(data);
-            displayAIresponse(data);
-            startTimer();
+  // Sends the user input to the server
+  function sendMessage() {
+    // Send the message to server
+    console.trace("Sending message to server...");
 
-        });
-
-    }
-
-    $(document).ready(function () {
-
-       
-
-        $("#dm1 li a").click(function () {
-            var selText = $(this).text();
-            $("#dropdownMenuButton1").html(selText);
-        });
-        $("#dm2 li a").click(function () {
-            var selText = $(this).text();
-            $("#dropdownMenuButton2").html(selText);
-        });
-        $("#dm3 li a").click(function () {
-            var selText = $(this).text();
-            $("#dropdownMenuButton3").html(selText);
-        });
-        $("#dm4 li a").click(function () {
-            var selText = $(this).text();
-            $("#dropdownMenuButton4").html(selText);
-        });
-        $.get("/getUserID", {}).
-            done(function (data) {
-                console.trace("Got user ID back from the server!");
-                $("#userID").text("User ID : " + data);
-            });
-
-        
-        
-
-        
-
-        // $.ajax({
-        //     type: 'POST',
-        //     data: {
-        //         'dropdownMenuButton': 'dropdownMenuButton',
-        //         'dropdownMenuButton2': 'dropdownMenuButton2'  
-        //     },
-        //     success: function () {
-        //         alert('x');
-        //     }
-        // });
+    var form = document.getElementById("inputForm");
+    $.post("/getAIresponse", {
+      type: $("#dropdownMenuButton1").text(), // User input
+      location: $("#dropdownMenuButton2").text(),
+      duration: $("#dropdownMenuButton3").text(),
+      transportation: $("#dropdownMenuButton4").text()
+    }).done(function (data) {
+      console.trace("[Time: %s] Got response back from the server!", data.timestamp);
+      displayUserResponse(data);
+      displayAIresponse(data);
+      startTimer();
 
     });
+
+  }
+
+
+  $(document).ready(function () {
+
+
+    $('.popup-close').click(function () {
+      $('.modal-container').fadeOut('slow');
+      $('.grid-container').css({ "filter": "blur(0px)" }).animate({}, 500);
+
+    });
+    $("#dm1 li a").click(function () {
+      var selText = $(this).text();
+      $("#dropdownMenuButton1").html(selText);
+    });
+    $("#dm2 li a").click(function () {
+      var selText = $(this).text();
+      $("#dropdownMenuButton2").html(selText);
+    });
+    $("#dm3 li a").click(function () {
+      var selText = $(this).text();
+      $("#dropdownMenuButton3").html(selText);
+    });
+    $("#dm4 li a").click(function () {
+      var selText = $(this).text();
+      $("#dropdownMenuButton4").html(selText);
+    });
+    $.get("/getUserID", {}).
+      done(function (data) {
+        console.trace("Got user ID back from the server!");
+        $("#userID").text("User ID : " + data);
+      });
+
+
+
+
+
+
+    // $.ajax({
+    //     type: 'POST',
+    //     data: {
+    //         'dropdownMenuButton': 'dropdownMenuButton',
+    //         'dropdownMenuButton2': 'dropdownMenuButton2'  
+    //     },
+    //     success: function () {
+    //         alert('x');
+    //     }
+    // });
+
+  });
+
 
 
 
@@ -421,152 +575,297 @@ body {
 
 
 <html>
-<div class="grid-container">
+
+
+<div class="modal-container" id="modal-container">
+  <div class="modal-main"> <br>
+    <div id="PopupHeadline"><div id="welcomeMessage" style="margin-top:6px; font-size:35px">Welcome to NegatitorBot. </div>
+    <div style="font-size:20px; margin-bottom:5px">Please sort your preferences to continue. </div></div>
+
+    <div id="PopupTypes">
+      <div style="font-size:35px; margin-top:55px"> Types </div>
+      <ul class="sortable-type" id="sortable-type">
+        <li class="default" id="Food and Culture">Food and Culture</li>
+        <li class="default" id="Activity and Entertainment">Activity and Entartainment</li>
+        <li class="default" id="Nature and Adventure">Nature and Adventure</li>
+        <li class="default" id="Beach">Beach</li>
+
+      </ul>
+    </div>
+
+
+
+    <div id="PopupLocations">
+      <div style="font-size:35px;margin-top:55px"> Locations </div>
+
+      <ul id="sortable-location">
+
+        <li class="default" id="United States">United States</li>
+        <li class="default" id="Italy">Italy</li>
+        <li class="default" id="France">France</li>
+        <li class="default" id="Japan">Japan</li>
+
+      </ul>
+
+
+
+
+    </div>
+    <div id="PopupDurations">
+      <div style="font-size:35px; margin-top:55px"> Durations </div>
+      <ul id="sortable-duration">
+
+        <li class="default" id="5 Days">5 Days</li>
+        <li class="default" id="7 Days">7 Days</li>
+        <li class="default" id="10 Days">10 Days</li>
+        <li class="default" id="15 Days">15 Days</li>
+
+      </ul>
+    </div>
+
+
+    <div id="PopupTransportations">
+
+
+      <div style="font-size:35px;  margin-top:55px""> Transportations </div>
+        <ul id = "sortable-transportation">
+        <li class="default" id="Train">Train</li>
+        <li class="default" id="Car">Car</li>
+        <li class="default" id="Cruise">Cruise</li>
+        <li class="default" id="Caravan">Caravan</li>
+
+        </ul>
+      </div>
+
+
+      <button class="popup-close" id="popup-close" onclick="sendPopupMessage()">
+        <div style=margin-top:3px>Close</div>
+      </button>
+
+    </div>
+  </div>
+
+
+
+  <div class="grid-container">
+
+
+
 
     <div class="NegotiatorBot">
-        <div id="header" style="margin-top:55px; color:rgb(0, 0, 39);">NegotiatorBot</div></div>
-    <div class="OfferAccept">
-        <div id="OfferAccepInterface" class="OfferAcceptInterface">
-            <div id="OfferAccepInterfaceText" class="OfferAcceptInterfaceText" 
-            style="margin:10px;font-size:25px;">
-        I want to
-        <div class="dropdown selectionText">
-            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">Activity</div>
-            <div class="dropdown-menu" id="dm1">
-                <li><a class="dropdown-item" href="#">EAT TRADITIONAL FOOD</a></li>
-                <li><a class="dropdown-item" href="#">GO CAMPING</a></li>
-                <li><a class="dropdown-item" href="#">GO HIKING</a></li>
-                <li><a class="dropdown-item" href="#">GO SKIING</a></li>
-                <li><a class="dropdown-item" href="#">GO SWIMMING</a></li>
-                <li><a class="dropdown-item" href="#">GO TO CINEMA</a></li>
-                <li><a class="dropdown-item" href="#">GO TO THEATRE</a></li>
-                <li><a class="dropdown-item" href="#">JOIN WALKING TOUR</a></li>
-                <li><a class="dropdown-item" href="#">VISIT CAVES</a></li>
-                <li><a class="dropdown-item" href="#">VISIT MUSEUMS</a></li>
-            </div>
-        </div>
-        for
-        <div class="dropdown selectionText">
-            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">Duration</div>
-            <div class="dropdown-menu" id="dm2">
-                <li><a class="dropdown-item" href="#">3 DAYS</a></li>
-                <li><a class="dropdown-item" href="#">4 DAYS</a></li>
-                <li><a class="dropdown-item" href="#">1 WEEK</a></li>
-                <li><a class="dropdown-item" href="#">2 WEEKS</a></li>
-                <li><a class="dropdown-item" href="#">3 WEEKS</a></li>
-                <li><a class="dropdown-item" href="#">1 MONTH</a></li>
-                <li><a class="dropdown-item" href="#">2 MONTHS</a></li>
-            </div>
-        </div>
-        in
-        <div class="dropdown selectionText">
-            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">Location</div>
-            <div class="dropdown-menu" id="dm3">
-                <li><a class="dropdown-item" href="#" id="option1">CHINA</a></li>
-                <li><a class="dropdown-item" href="#" id="option2">FRANCE</a></li>
-                <li><a class="dropdown-item" href="#" id="option3">GERMANY</a></li>
-                <li><a class="dropdown-item" href="#" id="option4">GREECE</a></li>
-                <li><a class="dropdown-item" href="#" id="option5">ITALY</a></li>
-                <li><a class="dropdown-item" href="#" id="option6">MEXICO</a></li>
-                <li><a class="dropdown-item" href="#" id="option7">SPAIN</a></li>
-                <li><a class="dropdown-item" href="#" id="option8">THAILAND</a></li>
-                <li><a class="dropdown-item" href="#" id="option9">UNITED KINGDOM</a></li>
-                <li><a class="dropdown-item" href="#" id="option10">UNITED STATES</a></li>
-            </div>
-        </div>
-        starting
-        <div class="dropdown selectionText">
-            <div class="dropdown-toggle" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">Starting Time</div>
-            <div class="dropdown-menu" id="dm4">
-                <li><a class="dropdown-item" href="#">TODAY</a></li>
-                <li><a class="dropdown-item" href="#">3 DAYS</a></li>
-                <li><a class="dropdown-item" href="#">NEXT WEEK</a></li>
-                <li><a class="dropdown-item" href="#">10 DAYS</a></li>
-                <li><a class="dropdown-item" href="#">2 WEEKS</a></li>
-                <li><a class="dropdown-item" href="#">NEXT MONTH</a></li>
-                <li><a class="dropdown-item" href="#">NEXT YEAR</a></li>
-            </div>
-        </div>
-        .
-    </div></div>
 
-    <div class="buttons">
+      <div id="header" style="margin-top:55px; color:rgb(0, 0, 39);">NegotiatorBot</div>
+    </div>
+
+    <div class="OfferAccept">
+      <div id="OfferAccepInterface" class="OfferAcceptInterface">
+        <div id="OfferAccepInterfaceText" class="OfferAcceptInterfaceText" style="margin:10px;font-size:25px;">
+          I want to go to
+          <div class="dropdown selectionText">
+            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Type</div>
+            <div class="dropdown-menu" id="dm1">
+              <li><a class="dropdown-item" href="#">Food and Culture</a></li>
+              <li><a class="dropdown-item" href="#">Activity and Entertainment</a></li>
+              <li><a class="dropdown-item" href="#">Nature and Adventure</a></li>
+              <li><a class="dropdown-item" href="#">Beach</a></li>
+            </div>
+          </div>
+          trip in
+          <div class="dropdown selectionText">
+            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Location</div>
+            <div class="dropdown-menu" id="dm2">
+              <li><a class="dropdown-item" href="#" id="option1">United States</a></li>
+              <li><a class="dropdown-item" href="#" id="option2">Italy</a></li>
+              <li><a class="dropdown-item" href="#" id="option3">France</a></li>
+              <li><a class="dropdown-item" href="#" id="option4">Japan</a></li>
+            </div>
+          </div>
+          for
+          <div class="dropdown selectionText">
+            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Duration Time</div>
+            <div class="dropdown-menu" id="dm3">
+              <li><a class="dropdown-item" href="#">5 Days</a></li>
+              <li><a class="dropdown-item" href="#">7 Days</a></li>
+              <li><a class="dropdown-item" href="#">10 Days</a></li>
+              <li><a class="dropdown-item" href="#">15 Days</a></li>
+
+            </div>
+          </div>
+          with
+          <div class="dropdown selectionText">
+            <div class="dropdown-toggle" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Transportation</div>
+            <div class="dropdown-menu" id="dm4">
+              <li><a class="dropdown-item" href="#">Train</a></li>
+              <li><a class="dropdown-item" href="#">Car</a></li>
+              <li><a class="dropdown-item" href="#">Cruise</a></li>
+              <li><a class="dropdown-item" href="#">Caravan</a></li>
+
+            </div>
+          </div>
+
+          .
+        </div>
+      </div>
+
+      <div class="buttons">
         <button class="submitButton" onclick="sendMessage()"> Submit </button>
         <button class="acceptButton"> Accept </button>
-    </div>
+      </div>
 
 
     </div>
-    
-    <div class="Chat" style="font-size: 35px; text-align:center" >Chat</div>
+
+    <div class="Chat" style="font-size: 35px; text-align:center">Chat</div>
     <div class="Timer" style="font-size: 35px; text-align:center">Timer<div id="app">
-    
-        </div>
+
+      </div>
     </div>
     <div class="CountryPic">
-        <img id="countryImage" class="countryImage" 
-        src="https://wallpaperaccess.com/full/2059786.jpg"
-         alt="Lamp">
+      <img id="countryImage" class="countryImage" src="https://wallpaperaccess.com/full/2059786.jpg" alt="Lamp">
 
     </div>
-    <div class="Info">Info</div>
-    <div class="Preferences">Preferences
-        <div class="slidecontainer">
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-          </div>
-          <p>Value: <span id="demo"></span></p>
+    <div class="Info">Info
+      <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
     </div>
-    
-</div>
+    <div class="Preferences">Preferences
+      <div class="slidecontainer">
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+      </div>
+      <p>Value: <span id="demo"></span></p>
+    </div>
+
+  </div>
 
 </html>
 
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <script>
-
-function displaySelection(val) {
-        console.trace("clicked on : ");
-        console.trace(val.getAttribute("value"));
-    }
+  
 
 
-    const FULL_DASH_ARRAY = 283;
-const WARNING_THRESHOLD = 10;
-const ALERT_THRESHOLD = 5;
 
-const COLOR_CODES = {
-  info: {
-    color: "green"
-  },
-  warning: {
-    color: "orange",
-    threshold: WARNING_THRESHOLD
-  },
-  alert: {
-    color: "red",
-    threshold: ALERT_THRESHOLD
+
+Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
+  color: '#FE777B'
+});
+
+
+
+  var typeOrder;
+  var locationOrder;
+  var durationOrder;
+  var transportationOrder;
+
+
+
+
+
+
+  function sendPopupMessage() {
+
+    typeOrder = $("#sortable-type").sortable("toArray");
+    locationOrder = $("#sortable-location").sortable("toArray");
+    durationOrder = $("#sortable-duration").sortable("toArray");
+    transportationOrder = $("#sortable-transportation").sortable("toArray");
+    //str = str.replace("data-", "");
+    
+    console.log(typeOrder);
+    console.log(locationOrder);
+    console.log(durationOrder);
+    console.log(transportationOrder);
+
+    chartInit();
+
   }
-};
 
-const TIME_LIMIT = 20;
-let timePassed = 0;
-let timeLeft = TIME_LIMIT;
-let timerInterval = null;
-let remainingPathColor = COLOR_CODES.info.color;
 
-document.getElementById("app").innerHTML = `
+  function chartInit() {
+    var orders = typeOrder.concat(locationOrder, durationOrder, transportationOrder);
+    console.log(orders[0]);
+    let myChart = document.getElementById('myChart').getContext('2d');
+    let chart = new Chart(myChart, {
+      type: 'pie',
+      data: {
+        datasets: [{
+          labels: orders,
+          data: [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
+          backgroundColor: ['pink', 'lightblue', 'yellow', 'lightgreen'],
+          
+        }, {
+          labels: [
+                'Type',
+                'Location',
+                'Duration',
+                'Transportation'
+            ],
+        data: [25 , 25, 25, 25],
+          backgroundColor: ['pink', 'lightblue', 'yellow', 'lightgreen']}]
+      },plugins: [ChartDataLabels],
+
+      options: {
+        responsive: true,
+        legend: {
+            display: false,
+        },
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var index = tooltipItem.index;
+                    return dataset.labels[index] + ': ' + dataset.data[index];
+                }
+            }
+        },
+        
+       } } )
+
+  }
+
+
+
+
+
+  function displaySelection(val) {
+    console.trace("clicked on : ");
+    console.trace(val.getAttribute("value"));
+  }
+
+
+  const FULL_DASH_ARRAY = 283;
+  const WARNING_THRESHOLD = 10;
+  const ALERT_THRESHOLD = 5;
+
+  const COLOR_CODES = {
+    info: {
+      color: "green"
+    },
+    warning: {
+      color: "orange",
+      threshold: WARNING_THRESHOLD
+    },
+    alert: {
+      color: "red",
+      threshold: ALERT_THRESHOLD
+    }
+  };
+
+  const TIME_LIMIT = 20;
+  let timePassed = 0;
+  let timeLeft = TIME_LIMIT;
+  let timerInterval = null;
+  let remainingPathColor = COLOR_CODES.info.color;
+
+  document.getElementById("app").innerHTML = `
 <div class="base-timer">
   <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <g class="base-timer__circle">
@@ -590,80 +889,80 @@ document.getElementById("app").innerHTML = `
 </div>
 `;
 
-startTimer();
+  startTimer();
 
-function onTimesUp() {
-  clearInterval(timerInterval);
-}
+  function onTimesUp() {
+    clearInterval(timerInterval);
+  }
 
-function startTimer() {
-  timerInterval = setInterval(() => {
-    timePassed = timePassed += 1;
-    timeLeft = TIME_LIMIT - timePassed;
-    document.getElementById("base-timer-label").innerHTML = formatTime(
-      timeLeft
-    );
-    setCircleDasharray();
-    setRemainingPathColor(timeLeft);
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      timePassed = timePassed += 1;
+      timeLeft = TIME_LIMIT - timePassed;
+      document.getElementById("base-timer-label").innerHTML = formatTime(
+        timeLeft
+      );
+      setCircleDasharray();
+      setRemainingPathColor(timeLeft);
 
-    if (timeLeft === 0) {
-      onTimesUp();
+      if (timeLeft === 0) {
+        onTimesUp();
+      }
+    }, 1000);
+  }
+
+  function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    if (seconds < 10) {
+      seconds = `0${seconds}`;
     }
-  }, 1000);
-}
 
-function formatTime(time) {
-  const minutes = Math.floor(time / 60);
-  let seconds = time % 60;
-
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
+    return `${minutes}:${seconds}`;
   }
 
-  return `${minutes}:${seconds}`;
-}
-
-function setRemainingPathColor(timeLeft) {
-  const { alert, warning, info } = COLOR_CODES;
-  if (timeLeft <= alert.threshold) {
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.remove(warning.color);
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.add(alert.color);
-  } else if (timeLeft <= warning.threshold) {
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.remove(info.color);
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.add(warning.color);
+  function setRemainingPathColor(timeLeft) {
+    const { alert, warning, info } = COLOR_CODES;
+    if (timeLeft <= alert.threshold) {
+      document
+        .getElementById("base-timer-path-remaining")
+        .classList.remove(warning.color);
+      document
+        .getElementById("base-timer-path-remaining")
+        .classList.add(alert.color);
+    } else if (timeLeft <= warning.threshold) {
+      document
+        .getElementById("base-timer-path-remaining")
+        .classList.remove(info.color);
+      document
+        .getElementById("base-timer-path-remaining")
+        .classList.add(warning.color);
+    }
   }
-}
 
-function calculateTimeFraction() {
-  const rawTimeFraction = timeLeft / TIME_LIMIT;
-  return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
-}
+  function calculateTimeFraction() {
+    const rawTimeFraction = timeLeft / TIME_LIMIT;
+    return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+  }
 
-function setCircleDasharray() {
-  const circleDasharray = `${(
-    calculateTimeFraction() * FULL_DASH_ARRAY
-  ).toFixed(0)} 283`;
-  document
-    .getElementById("base-timer-path-remaining")
-    .setAttribute("stroke-dasharray", circleDasharray);
-}
+  function setCircleDasharray() {
+    const circleDasharray = `${(
+      calculateTimeFraction() * FULL_DASH_ARRAY
+    ).toFixed(0)} 283`;
+    document
+      .getElementById("base-timer-path-remaining")
+      .setAttribute("stroke-dasharray", circleDasharray);
+  }
 
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
+  var slider = document.getElementById("myRange");
+  var output = document.getElementById("demo");
+  output.innerHTML = slider.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
+  // Update the current slider value (each time you drag the slider handle)
+  slider.oninput = function () {
+    output.innerHTML = this.value;
+  }
 
 
 </script>
