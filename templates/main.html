@@ -13,7 +13,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+  <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+  <meta http-equiv="content-type" content="text-html; charset=utf-8" />
 
+  <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+  <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/default.css" />
+  <style type="text/css"></style>
 
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -148,6 +156,7 @@
   }
 
   .Info {
+    overflow:visible;
     margin-left: 5px;
     margin-top: 5px;
     grid-area: Info;
@@ -274,40 +283,6 @@
     font-size: 48px;
   }
 
-  .slidecontainer {
-    width: 100%;
-  }
-
-
-  .slider {
-    border-radius: 5px;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 25px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-  }
-
-
-  .slider:hover {
-    opacity: 1;
-  }
-
-
-  .slider::-webkit-slider-thumb {
-    border-radius: 5px;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #2052f7;
-    cursor: pointer;
-
-  }
 
   .modal-container {
     position: fixed;
@@ -729,19 +704,92 @@
 
     </div>
     <div class="Info">Info
-      <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+    <div id="chartDiv" style="max-width: 500px; height: 430px; margin: 0px auto;"></div>
     </div>
     <div class="Preferences">Preferences
-      <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-      </div>
-      <p>Value: <span id="demo"></span></p>
+     
     </div>
 
   </div>
 
 </html>
 
+<script type="text/javascript" >
+  /*
+A nested donut chart with labels.
+Learn how to:
+
+- Draw a nested donut chart.
+*/
+  // JS
+  function chartInit() {
+  var orders = typeOrder.concat(locationOrder, durationOrder, transportationOrder);
+  var chart = JSC.chart('chartDiv', {
+        debug: false,
+        defaultSeries: { type: 'pieDonut', shape_center: '50%,50%' },
+        title: {
+          label: {
+            style_fontSize: 16
+          },
+          position: 'center'
+        },
+        defaultPoint: {
+          tooltip: '<b>%name</b>'
+        },
+        legend_layout: 'vertical',
+        legend: { template: ' %icon %name', position: 'right', },
+        series: [
+          {
+            name: 'Preferences',
+            points: [
+              { x: 'Type', y: 25, legendEntry: { sortOrder: 1 } },
+              { x: 'Location', y: 25, legendEntry: { sortOrder: 3, lineAbove: true } },
+              { x: 'Duration', y: 25, legendEntry: { sortOrder: 5, lineAbove: true } },
+              { x: 'Transport', y: 25, legendEntry: { sortOrder: 7, lineAbove: true } }
+
+            ],
+            shape: { innerSize: '0%', size: '40%' },
+            defaultPoint_label: {
+              text: '<b>%name</b>',
+              placement: 'inside'
+            },
+            palette: ['#66bb6a', '#ffca28', '#ef5350', 'lightblue']
+          },
+          {
+            name: 'Preferences2',
+            points: [
+              { x: orders[0], y: 10, legendEntry_sortOrder: 2, attributes: 'Type',  },
+              { x: orders[1], y: 20, legendEntry_sortOrder: 2, attributes: 'Type' },
+              { x: orders[2], y: 30, legendEntry_sortOrder: 2, attributes: 'Type' },
+              { x: orders[3], y: 40, legendEntry_sortOrder: 2, attributes_year: 'Type' },
+              { x: orders[4], y: 10, legendEntry_sortOrder: 4, attributes_year: 'Location' },
+              { x: orders[5], y: 20, legendEntry_sortOrder: 4, attributes_year: 'Location' },
+              { x: orders[6], y: 30, legendEntry_sortOrder: 4, attributes_year: 'Location' },
+              { x: orders[7], y: 40, legendEntry_sortOrder: 4, attributes_year: 'Location' },
+              { x: orders[8], y: 10, legendEntry_sortOrder: 6, attributes_year: 'Duration' },
+              { x: orders[9], y: 20, legendEntry_sortOrder: 6, attributes_year: 'Duration' },
+              { x: orders[10], y: 30, legendEntry_sortOrder: 6, attributes_year: 'Duration' },
+              { x: orders[11], y: 40, legendEntry_sortOrder: 6, attributes_year: 'Duration' },     
+             { x: orders[12], y: 10, legendEntry_sortOrder: 8, attributes_year: 'Transport' },
+             { x: orders[13], y: 20, legendEntry_sortOrder: 8, attributes_year: 'Transport' },
+             { x: orders[14], y: 30, legendEntry_sortOrder: 8, attributes_year: 'Transport' },
+             { x: orders[15], y: 40, legendEntry_sortOrder: 8, attributes_year: 'Transport' }
+            ],
+            defaultPoint_tooltip: '<b>%name</b><br>Weight: %<b>%value</b>',
+            shape: { innerSize: '55%', size: '80%' },
+            defaultPoint_label: {
+              text: '<b>%name</b>',
+              placement: 'inside'
+            },
+            palette: JSC.colorToPalette('#66bb6a', { lightness: 0.4 }, 4, 0).concat(
+              JSC.colorToPalette('#ffca28', { lightness: 0.4 }, 4, 0),
+              JSC.colorToPalette('#ef5350', { lightness: 0.4 }, 4, 0),
+              JSC.colorToPalette('lightblue', { lightness: 0.4 }, 4, 0)
+            )
+          }
+        ]
+      }); }
+</script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -789,48 +837,7 @@ Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
   }
 
 
-  function chartInit() {
-    var orders = typeOrder.concat(locationOrder, durationOrder, transportationOrder);
-    console.log(orders[0]);
-    let myChart = document.getElementById('myChart').getContext('2d');
-    let chart = new Chart(myChart, {
-      type: 'pie',
-      data: {
-        datasets: [{
-          labels: orders,
-          data: [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
-          backgroundColor: ['pink', 'lightblue', 'yellow', 'lightgreen'],
-          
-        }, {
-          labels: [
-                'Type',
-                'Location',
-                'Duration',
-                'Transportation'
-            ],
-        data: [25 , 25, 25, 25],
-          backgroundColor: ['pink', 'lightblue', 'yellow', 'lightgreen']}]
-      },plugins: [ChartDataLabels],
-
-      options: {
-        responsive: true,
-        legend: {
-            display: false,
-        },
-        tooltips: {
-            callbacks: {
-                label: function(tooltipItem, data) {
-                    var dataset = data.datasets[tooltipItem.datasetIndex];
-                    var index = tooltipItem.index;
-                    return dataset.labels[index] + ': ' + dataset.data[index];
-                }
-            }
-        },
-        
-       } } )
-
-  }
-
+  
 
 
 
