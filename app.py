@@ -39,10 +39,11 @@ def accountPage():
 	return 'This is your account page'
 
 
+
 def aiModel(type, location, duration, transportation):
 
 	
-	print("hey")
+	
 
 	x= types.loc[type]['AIdecision']
 	y = math.floor((x + 4)/2)
