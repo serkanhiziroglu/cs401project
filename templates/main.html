@@ -13,10 +13,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
-  <script src="https://code.jscharting.com/latest/jscharting.js"></script>
   <meta http-equiv="content-type" content="text-html; charset=utf-8" />
 
-  <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
 
   <script type="text/javascript" src="../jsc/modules/types.js"></script>
 
@@ -73,10 +72,10 @@
     grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 5px 5px;
     grid-template-areas:
-      "Timer NegotiatorBot NegotiatorBot Chat"
       "Timer CountryPic CountryPic Chat"
-      "Info CountryPic CountryPic Chat"
-      "Info Preferences Preferences OfferAccept";
+      "Timer CountryPic CountryPic Chat"
+      "NegotiatorBot Preferences Preferences Chat"
+      "NegotiatorBot Preferences Preferences OfferAccept";
     filter: blur(10px);
   }
 
@@ -84,8 +83,7 @@
 
     resize: none !important;
     margin-right: 3px;
-    max-height: 195px;
-    min-height: 195px;
+
     grid-area: OfferAccept;
     display: grid;
     grid-template-columns: 1fr;
@@ -101,8 +99,7 @@
   }
 
   .OfferAcceptInterface {
-    min-height: 200px;
-    max-height: 200px;
+
     resize: none !important;
     border: solid;
     border-radius: 5px;
@@ -114,7 +111,7 @@
   }
 
   .NegotiatorBot {
-    margin-top: 5px;
+    margin-left: 5px;
     grid-area: NegotiatorBot;
     border: solid;
     border-radius: 7px;
@@ -129,7 +126,7 @@
 
 
   .Chat {
-
+    margin-right: 5px;
     overflow-y: scroll;
     margin-top: 5px;
     grid-area: Chat;
@@ -137,8 +134,7 @@
     border-radius: 7px;
     border-color: #189ad3;
     border-width: 3px;
-    min-height: 700px;
-    max-height: 700px;
+
   }
 
 
@@ -155,16 +151,6 @@
     place-items: center;
   }
 
-  .Info {
-    overflow:visible;
-    margin-left: 5px;
-    margin-top: 5px;
-    grid-area: Info;
-    border: solid;
-    border-radius: 5px;
-    border-color: #1ebbd7;
-    border-width: 3px;
-  }
 
   .CountryPic {
     margin-top: 5px;
@@ -416,11 +402,6 @@
 
 
 
-  Chart.plugins.register(ChartDataLabels);
-  Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
-    color: 'black'
-  });
-
 
   $(function () {
     $("#sortable-location").sortable();
@@ -549,7 +530,7 @@
 </script>
 
 
-<html>
+<body>
 
 
 <div class="modal-container" id="modal-container">
@@ -703,93 +684,16 @@
       <img id="countryImage" class="countryImage" src="https://wallpaperaccess.com/full/2059786.jpg" alt="Lamp">
 
     </div>
-    <div class="Info">Info
-    <div id="chartDiv" style="max-width: 500px; height: 430px; margin: 0px auto;"></div>
-    </div>
+
+
     <div class="Preferences">Preferences
      
     </div>
 
   </div>
 
-</html>
+</body>
 
-<script type="text/javascript" >
-  /*
-A nested donut chart with labels.
-Learn how to:
-
-- Draw a nested donut chart.
-*/
-  // JS
-  function chartInit() {
-  var orders = typeOrder.concat(locationOrder, durationOrder, transportationOrder);
-  var chart = JSC.chart('chartDiv', {
-        debug: false,
-        defaultSeries: { type: 'pieDonut', shape_center: '50%,50%' },
-        title: {
-          label: {
-            style_fontSize: 16
-          },
-          position: 'center'
-        },
-        defaultPoint: {
-          tooltip: '<b>%name</b>'
-        },
-        legend_layout: 'vertical',
-        legend: { template: ' %icon %name', position: 'right', },
-        series: [
-          {
-            name: 'Preferences',
-            points: [
-              { x: 'Type', y: 25, legendEntry: { sortOrder: 1 } },
-              { x: 'Location', y: 25, legendEntry: { sortOrder: 3, lineAbove: true } },
-              { x: 'Duration', y: 25, legendEntry: { sortOrder: 5, lineAbove: true } },
-              { x: 'Transport', y: 25, legendEntry: { sortOrder: 7, lineAbove: true } }
-
-            ],
-            shape: { innerSize: '0%', size: '40%' },
-            defaultPoint_label: {
-              text: '<b>%name</b>',
-              placement: 'inside'
-            },
-            palette: ['#66bb6a', '#ffca28', '#ef5350', 'lightblue']
-          },
-          {
-            name: 'Preferences2',
-            points: [
-              { x: orders[0], y: 10, legendEntry_sortOrder: 2, attributes: 'Type',  },
-              { x: orders[1], y: 20, legendEntry_sortOrder: 2, attributes: 'Type' },
-              { x: orders[2], y: 30, legendEntry_sortOrder: 2, attributes: 'Type' },
-              { x: orders[3], y: 40, legendEntry_sortOrder: 2, attributes_year: 'Type' },
-              { x: orders[4], y: 10, legendEntry_sortOrder: 4, attributes_year: 'Location' },
-              { x: orders[5], y: 20, legendEntry_sortOrder: 4, attributes_year: 'Location' },
-              { x: orders[6], y: 30, legendEntry_sortOrder: 4, attributes_year: 'Location' },
-              { x: orders[7], y: 40, legendEntry_sortOrder: 4, attributes_year: 'Location' },
-              { x: orders[8], y: 10, legendEntry_sortOrder: 6, attributes_year: 'Duration' },
-              { x: orders[9], y: 20, legendEntry_sortOrder: 6, attributes_year: 'Duration' },
-              { x: orders[10], y: 30, legendEntry_sortOrder: 6, attributes_year: 'Duration' },
-              { x: orders[11], y: 40, legendEntry_sortOrder: 6, attributes_year: 'Duration' },     
-             { x: orders[12], y: 10, legendEntry_sortOrder: 8, attributes_year: 'Transport' },
-             { x: orders[13], y: 20, legendEntry_sortOrder: 8, attributes_year: 'Transport' },
-             { x: orders[14], y: 30, legendEntry_sortOrder: 8, attributes_year: 'Transport' },
-             { x: orders[15], y: 40, legendEntry_sortOrder: 8, attributes_year: 'Transport' }
-            ],
-            defaultPoint_tooltip: '<b>%name</b><br>Weight: %<b>%value</b>',
-            shape: { innerSize: '55%', size: '80%' },
-            defaultPoint_label: {
-              text: '<b>%name</b>',
-              placement: 'inside'
-            },
-            palette: JSC.colorToPalette('#66bb6a', { lightness: 0.4 }, 4, 0).concat(
-              JSC.colorToPalette('#ffca28', { lightness: 0.4 }, 4, 0),
-              JSC.colorToPalette('#ef5350', { lightness: 0.4 }, 4, 0),
-              JSC.colorToPalette('lightblue', { lightness: 0.4 }, 4, 0)
-            )
-          }
-        ]
-      }); }
-</script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -803,9 +707,6 @@ Learn how to:
 
 
 
-Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
-  color: '#FE777B'
-});
 
 
 
@@ -832,7 +733,7 @@ Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
     console.log(durationOrder);
     console.log(transportationOrder);
 
-    chartInit();
+
 
   }
 
