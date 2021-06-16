@@ -1,7 +1,9 @@
 <html>
 
 <head>
-  <title>Negotiatior Bot</title>
+
+  <link rel="icon" href="https://img.icons8.com/wired/64/000000/bot.png">
+  <title>NegotiatorBot</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -15,13 +17,15 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
   <meta http-equiv="content-type" content="text-html; charset=utf-8" />
 
-
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 
   <script type="text/javascript" src="../jsc/modules/types.js"></script>
 
   <link rel="stylesheet" type="text/css" href="css/default.css" />
   <style type="text/css"></style>
 
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -77,6 +81,7 @@
       "NegotiatorBot Preferences Preferences Chat"
       "NegotiatorBot Preferences Preferences OfferAccept";
     filter: blur(10px);
+  
   }
 
   .OfferAccept {
@@ -126,6 +131,7 @@
 
 
   .Chat {
+    max-height: 46rem;
     margin-right: 5px;
     overflow-y: scroll;
     margin-top: 5px;
@@ -153,22 +159,30 @@
 
 
   .CountryPic {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "typeImage"
+      "transportationImage";
     margin-top: 5px;
     grid-area: CountryPic;
 
   }
 
-  .Preferences {
-    margin-top: 5px;
-    grid-area: Preferences;
-    border: solid;
-    border-radius: 5px;
-    border-color: rgb(104, 126, 173);
-    border-width: 3px;
-  }
+  #popup-close:active, .submitButton:active, .acceptButton:active {
+  background-color: #addbfa;
+  box-shadow: 0 5px rgb(196, 196, 196);
+  transform: translateY(2px);
+}
+
+  .submitButton:hover {background-color: #8dc0fa}
+  .acceptButton:hover {background-color: #8dc0fa}
+  #popup-close:hover {background-color: #8dc0fa}
+
 
   .buttons {
-
+    
     grid-area: buttons;
     text-align: center;
 
@@ -193,9 +207,26 @@
     background-color: lightslategray;
   }
 
-  #countryImage {
-    width: 950px;
-    height: 450px;
+  #typeImage {
+
+    filter: grayscale(50%);
+    width: 475px;
+    height: 465px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+    border-radius: 5px;
+    border-color: rgb(92, 118, 233);
+    border-width: 3px;
+
+  }
+
+  #transportationImage {
+ 
+    filter: grayscale(50%);
+    width: 475px;
+    height: 465px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -370,6 +401,7 @@
     margin-top: 25px;
     margin-bottom: auto;
     width: 75%;
+    cursor: grab;
   }
 
   #sortable-location li,
@@ -380,6 +412,7 @@
     margin: 0 5px 5px 5px;
     font-size: 25px;
     height: 35px;
+    cursor: grab;
   }
 
   .default {
@@ -387,14 +420,95 @@
     border: 2px solid #000000;
     color: #333333;
   }
+
+
+  .Preferences {
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+
+    gap: 0px 0px;
+    grid-template-areas:
+      "pref" "pref" "pref" "infoScreen"
+      "pref" "pref" "pref" "infoScreen"
+      "pref" "pref" "pref" "infoScreen"
+      "pref" "pref" "pref" "infoScreen";
+    grid-area: Preferences;
+    border: solid;
+    border-radius: 5px;
+    border-color: rgb(104, 126, 173);
+    border-width: 3px;
+    height: 470px;
+    width: 950px;
+  }
+
+  .preferenceText {
+  min-height: 450px;
+  max-height: 450px;
+  width: 650px;
+  max-height: 150px;
+
+ 
+  }
+
+  .chartArea{
+    width: 300px;
+    height: 450px;
+
+  }
+  .ct-chart{
+    float:right;
+    margin-right: 15px;
+    margin-top: 100px;
+    cursor: pointer; 
+    }
+
+    .ct-label {
+      margin-right:55px;
+    font-size: 20px;
+}
+
+.ct-labels span {
+  color: steelblue;
+}
+
+
+
+.dragImage {
+  height: 30px;
+  width: 30px;
+  display: inline;
+}
+
+.robotImage {
+  margin-top:10px;
+  height:300px;
+  width:300px;
+  border-radius: 25px;
+  border: solid;
+  filter: drop-shadow(0 0 1rem rgb(138, 138, 207));
+}
+
+
+
 </style>
 
+<script>
+  var user_id;
+  function get_uuidv4() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+  user_id = get_uuidv4();
+</script>
 
 
 
 <script>
 
-
+ 
+var timeLeft;
 
 
   $(function () {
@@ -436,7 +550,9 @@
     console.log(aiResponseSpan);
     $('.Chat').append(aiResponseSpan + '<br>');
 
-    console.log($("#countryImage").attr("src", response.imageSource));
+    console.log($("#typeImage").attr("src", response.imageSource));
+    console.log($("#transportationImage").attr("src", response.imageSource2));
+
 
     var image = console.trace(response.imageSource);
 
@@ -446,22 +562,30 @@
     $('.Chat').scrollTop($('.Chat')[0].scrollHeight);
   }
 
+
   // Sends the user input to the server
   function sendMessage() {
     // Send the message to server
     console.trace("Sending message to server...");
+    console.trace("timeLeft: ", timeLeft);
 
     var form = document.getElementById("inputForm");
     $.post("/getAIresponse", {
       type: $("#dropdownMenuButton1").text(), // User input
       location: $("#dropdownMenuButton2").text(),
       duration: $("#dropdownMenuButton3").text(),
-      transportation: $("#dropdownMenuButton4").text()
-    }).done(function (data) {
+      transportation: $("#dropdownMenuButton4").text(),
+      user_id: user_id,
+      timeleft : timeLeft
+    })
+    .fail(function() {
+    alert( "error" );
+     })
+     .done(function (data) {
       console.trace("[Time: %s] Got response back from the server!", data.timestamp);
       displayUserResponse(data);
       displayAIresponse(data);
-      startTimer();
+
 
     });
 
@@ -469,6 +593,8 @@
 
 
   $(document).ready(function () {
+
+
 
 
     $('.popup-close').click(function () {
@@ -497,6 +623,83 @@
         console.trace("Got user ID back from the server!");
         $("#userID").text("User ID : " + data);
       });
+
+
+  var data = {
+  labels: ['Type', 'Location', 'Duration', 'Transport'],
+  series: [{value:25, meta: 'Type'} , {value:25, meta: 'Location'} , {value:25, meta: 'Duration'} , {value:25, meta: 'Transportation'}]
+};
+
+var options = {
+  width: 250,
+  height: 250,
+};
+
+var responsiveOptions = [
+];
+
+var chart = new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
+$('.ct-chart').on('click', '.ct-slice-pie', function() {
+  var selectedSection = Chartist.deserialize(this.getAttribute('ct:meta'));
+  console.log(selectedSection);
+  changeText(selectedSection)
+
+
+
+  
+});
+
+$('.ct-chart').on('moseuover', '.ct-slice-pie', function() {
+  this.height = 350;
+
+
+
+  
+});
+
+function changeText(selectedSection){
+  if (selectedSection == "Type") {
+
+  var div = $("#prefInner2");
+  div.animate()
+
+  $("#attribute1").text(TypeOrder[3]);
+  $("#attribute2").text(TypeOrder[2]);
+  $("#attribute3").text(TypeOrder[1]);
+  $("#attribute4").text(TypeOrder[0]);
+  }
+
+  if (selectedSection == "Location") {
+  $("#attribute1").text(LocationOrder[3]);
+  $("#attribute2").text(LocationOrder[2]);
+  $("#attribute3").text(LocationOrder[1]);
+  $("#attribute4").text(LocationOrder[0]);
+  }
+
+  if (selectedSection == "Duration") {
+  $("#attribute1").text(DurationOrder[3]);
+  $("#attribute2").text(DurationOrder[2]);
+  $("#attribute3").text(DurationOrder[1]);
+  $("#attribute4").text(DurationOrder[0]);
+  }
+
+  if (selectedSection == "Transportation") {
+  $("#attribute1").text(TransportationOrder[3]).fadeIn();
+  $("#attribute2").text(TransportationOrder[2]);
+  $("#attribute3").text(TransportationOrder[1]);
+  $("#attribute4").text(TransportationOrder[0]);
+  $("#prefInner2").fadeIn();
+  }
+
+
+
+  $("#prefInner").fadeOut(500, function() {
+    $("#prefInner2").fadeIn(500);
+  });
+
+
+
+}
 
 
 
@@ -530,10 +733,12 @@
 <div class="modal-container" id="modal-container">
   <div class="modal-main"> <br>
     <div id="PopupHeadline"><div id="welcomeMessage" style="margin-top:6px; font-size:35px">Welcome to NegatiatorBot. </div>
-    <div style="font-size:20px; margin-bottom:5px">Please sort your preferences to continue. </div></div>
+    <img id="dragImage" class="dragImage"  src="https://pics.freeicons.io/uploads/icons/png/9328816121553169553-512.png" >
+    <div style="font-size:20px; vertical-align: middle; display:inline">Please sort your preferences by dragging and dropping to continue. </div></div>
 
     <div id="PopupTypes">
-      <div style="font-size:35px; margin-top:55px"> Types </div>
+      <div style="font-size:35px; margin-top:55px"><img src="https://img.icons8.com/wired/64/000000/3-star-hotel.png" style="height:30px; width:30px"/> Types </div>
+      
       <ul class="sortable-type" id="sortable-type">
         <li class="default" id="Food and Culture">Food and Culture</li>
         <li class="default" id="Activity and Entertainment">Activity and Entertainment</li>
@@ -546,7 +751,7 @@
 
 
     <div id="PopupLocations">
-      <div style="font-size:35px;margin-top:55px"> Locations </div>
+      <div style="font-size:35px;margin-top:55px"><img src="https://img.icons8.com/wired/64/000000/world-map.png" style="height:30px; width:30px"/> Locations </div>
 
       <ul id="sortable-location">
 
@@ -562,7 +767,7 @@
 
     </div>
     <div id="PopupDurations">
-      <div style="font-size:35px; margin-top:55px"> Durations </div>
+      <div style="font-size:35px; margin-top:55px"><img src="https://img.icons8.com/wired/64/000000/clock.png" style="height:30px; width:30px"/> Durations </div>
       <ul id="sortable-duration">
 
         <li class="default" id="5 Days">5 Days</li>
@@ -577,7 +782,7 @@
     <div id="PopupTransportations">
 
 
-      <div style="font-size:35px;  margin-top:55px""> Transportations </div>
+      <div style="font-size:35px;  margin-top:55px""><img src="https://img.icons8.com/wired/64/000000/airport.png" style="height:30px; width:30px"> Transportations </div>
         <ul id = "sortable-transportation">
         <li class="default" id="Train">Train</li>
         <li class="default" id="Car">Car</li>
@@ -604,7 +809,11 @@
 
     <div class="NegotiatorBot">
 
-      <div id="header" style="margin-top:55px; color:rgb(0, 0, 39);">NegotiatorBot</div>
+      <div id="header" style="margin-top:20px; color:rgb(0, 0, 39);">
+        <img src="https://img.icons8.com/wired/64/000000/bot.png"/ style="height:35px;width:35px">
+        NegotiatorBot</div>
+      <img id="robotImage" class="robotImage" src="https://media.istockphoto.com/vectors/chat-bot-using-laptop-computer-robot-virtual-assistance-of-website-or-vector-id1126957765?k=6&m=1126957765&s=612x612&w=0&h=p_Fo6CzRv5kT5qp7a9GzVplaXfGfIdL18IsuyDHhC0A=">
+
     </div>
 
     <div class="OfferAccept">
@@ -663,26 +872,67 @@
 
       <div class="buttons">
         <button class="submitButton" onclick="sendMessage()"> Submit </button>
-        <button class="acceptButton"> Accept </button>
+        <button class="acceptButton" onclick="finish()"> Accept </button>
       </div>
 
 
     </div>
 
-    <div class="Chat" style="font-size: 35px; text-align:center">Chat</div>
-    <div class="Timer" style="font-size: 35px; text-align:center">Timer<div id="app">
+    <div class="Chat" style="font-size: 35px; text-align:center">
+      <img src="https://img.icons8.com/wired/64/000000/chat.png" style="height:35px; width:35px"/>
+      Chat</div>
+    <div class="Timer" style="font-size: 35px; text-align:center">
+      <img src="https://img.icons8.com/wired/64/000000/clock.png" style="height:35px; width:35px"/>
+      Timer<div id="app">
 
       </div>
     </div>
     <div class="CountryPic">
-      <img id="countryImage" class="countryImage" src="https://wallpaperaccess.com/full/2059786.jpg" alt="Lamp">
-
+      <img id="typeImage" class="typeImage" src="https://i.pinimg.com/736x/77/46/99/77469931a2c21816906c5058c5dbce49.jpg" > 
+      <img id="transportationImage" class="transportationImage" src="https://image.freepik.com/free-vector/cartoon-travelling-illustration_7096-286.jpg">
+      
     </div>
 
 
-    <div class="Preferences">Preferences
+    <div class="Preferences" >
+
+
+    <div class="preferenceText" id="preferenceText" style="font-size: 30px">
+      
+      <div class="prefHeadline" id="prefHeadline"
+      style="margin-top: 5px; margin-left:325px; text-align:middle; font-size: 35px;">
+      <img src="https://img.icons8.com/wired/64/000000/untested.png" style="height:35px; width:35px"/>
+     Preferences</div><div style="font-size:15px; color:gray; text-align:middle; margin-left:280px;">Based on utility values scaled between
+    0 and 100.</div>
+      <div class="prefInner" id="prefInner"
+       style="margin-top: 115px; margin-left:15px">
+      Please click on sections in the pie chart to see your preferences.</div>
+
+      
+      <div class="prefInner2" id="prefInner2"
+      style="top:0; margin-left:15px">
      
+      <div id="attribute1" class="attribute1" style="display: inline">1</div>
+      <div class="w3-light-grey w3-round-xlarge"> 
+      <div class="w3-container w3-orange w3-round-xlarge" style="width:10%">10%</div></div>
+      <div id="attribute2" class="attribute2" style="display: inline">2</div>
+      <div class="w3-light-grey w3-round-xlarge">
+      <div class="w3-container w3-green w3-round-xlarge" style="width:20%">20%</div></div>
+      <div id="attribute3" class="attribute3" style="display: inline">3</div> 
+      <div class="w3-light-grey w3-round-xlarge">
+      <div class="w3-container w3-red w3-round-xlarge" style="width:30%">30%</div></div>
+      <div id="attribute4" class="attribute4" style="display: inline">4</div>
+      <div class="w3-light-grey w3-round-xlarge">  
+      <div class="w3-container w3-blue w3-round-xlarge" style="width:40%">40%</div></div>
+    
+    
     </div>
+    
+    
+    </div>
+      
+     <div id="chartArea" clasS="chartArea"> <div class="ct-chart" id="ct-chart"></div> </div>
+    </div></div>
 
   </div>
 
@@ -698,16 +948,30 @@
 <script>
   
 
+  function finish() {
+
+var finishAnswer = `<div style="font-size:35px; color:green; background-color: lightgreen; border:solid; border-radius:3px">
+  <span style="color: #72acd4;font-size:35px;margin:5px;">AI : </span> 
+  I am glad we agreed!</div>`
+$('.Chat').append(finishAnswer);
+
+$("#dropdownMenuButton1").prop("disabled", true);
+$("#dropdownMenuButton2").prop("disabled", true);
+$("#dropdownMenuButton3").prop("disabled", true);
+$("#dropdownMenuButton4").prop("disabled", true);
+
+$('.Chat').scrollTop($('.Chat')[0].scrollHeight);
+}
 
 
 
 
 
 
-  var typeOrder;
-  var locationOrder;
-  var durationOrder;
-  var transportationOrder;
+  var TypeOrder;
+  var LocationOrder;
+  var DurationOrder;
+  var TransportationOrder;
 
 
 
@@ -716,24 +980,24 @@
 
   function sendPopupMessage() {
 
-    typeOrder = $("#sortable-type").sortable("toArray");
-    locationOrder = $("#sortable-location").sortable("toArray");
-    durationOrder = $("#sortable-duration").sortable("toArray");
-    transportationOrder = $("#sortable-transportation").sortable("toArray");
-    //str = str.replace("data-", "");
+    TypeOrder = $("#sortable-type").sortable("toArray");
+    LocationOrder = $("#sortable-location").sortable("toArray");
+    DurationOrder = $("#sortable-duration").sortable("toArray");
+    TransportationOrder = $("#sortable-transportation").sortable("toArray");
+
     
-    console.log(typeOrder);
-    console.log(locationOrder);
-    console.log(durationOrder);
-    console.log(transportationOrder);
+    console.log(TypeOrder);
+    console.log(LocationOrder);
+    console.log(DurationOrder);
+    console.log(TransportationOrder);
+
+    $('.prefInner2').hide();
+
+    
 
 
 
   }
-
-
-  
-
 
 
 
@@ -749,7 +1013,7 @@
 
   const COLOR_CODES = {
     info: {
-      color: "green"
+      color: "green",
     },
     warning: {
       color: "orange",
@@ -761,9 +1025,9 @@
     }
   };
 
-  const TIME_LIMIT = 600;
+  const TIME_LIMIT = 60;
   let timePassed = 0;
-  let timeLeft = TIME_LIMIT;
+  timeLeft = TIME_LIMIT;
   let timerInterval = null;
   let remainingPathColor = COLOR_CODES.info.color;
 
@@ -795,7 +1059,17 @@
 
   function onTimesUp() {
     clearInterval(timerInterval);
-  }
+    var finishAnswer = `<div style="font-size:35px; color:red; background-color: #ffcccb; border:solid; border-radius:3px>
+      <span style="color: #72acd4;font-size:35px;margin:5px;">AI : </span> 
+   I am sorry, time is up!</div>`
+   $('.Chat').append(finishAnswer);
+   $("#dropdownMenuButton1").prop("disabled", true);
+$("#dropdownMenuButton2").prop("disabled", true);
+$("#dropdownMenuButton3").prop("disabled", true);
+$("#dropdownMenuButton4").prop("disabled", true);
+
+$('.Chat').scrollTop($('.Chat')[0].scrollHeight);
+  } 
 
   function startTimer() {
     timerInterval = setInterval(() => {
@@ -867,6 +1141,8 @@
   }
 
 
+  
+  
 </script>
 
 </html>
